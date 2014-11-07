@@ -1,0 +1,5 @@
+﻿.container { width: 500px; margin: 0 auto; }
+.progress_outer { border: 1px solid #000; }
+.progress { width: 0%; background: #232596; height: 20px; }
+.fileUpload { position: relative; overflow: hidden; margin: 10px 0px; }
+.fileUpload input.upload { position: absolute; top: 0; right: 0; margin: 0; padding: 0; font-size: 20px; cursor: pointer; opacity: 0; filter: alpha(opacity=0); }

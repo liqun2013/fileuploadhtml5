@@ -1,0 +1,19 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    @*@Styles.Render("~/Content/css")*@
+    @Scripts.Render("http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.1.1.min.js")
+    @*@Scripts.Render("~/bundles/modernizr")*@
+</head>
+<body>
+    @RenderSection("featured", required: false)
+    @RenderBody()
+    @*@Scripts.Render("~/bundles/jquery")*@
+    @RenderSection("scripts", required: false)
+</body>
+</html>

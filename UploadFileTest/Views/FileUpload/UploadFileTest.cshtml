@@ -1,0 +1,27 @@
+﻿@{
+    ViewBag.Title = "文件上传Demo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    @Styles.Render("~/Content/uploadfile.css")
+    @Styles.Render("http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css")
+    @Styles.Render("http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap-theme.min.css")
+}
+
+<form id="upload_form" action="UploadFileTest" method="post" enctype="multipart/form-data">
+    <div class="fileUpload btn btn-default btn-xs">
+        <span>选择文件</span>
+        <input type="file" class="upload" id="selectedFile" name="selectedFile" multiple />
+    </div>
+    <div style="margin-top:10px;">
+        <input id="submit_btn" type="submit" value="上 传" class="btn btn-primary btn-sm btn-block" style="display:none;" />
+    </div>
+    <ol id="file_list" style="display: none;margin-top:10px;">
+        <!-- File data will be listed here -->
+    </ol>
+</form>
+@section Scripts{
+    @Scripts.Render("http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js")
+    @Scripts.Render("~/Scripts/fileupload.js")
+    <script type="text/javascript">
+    </script>
+}
