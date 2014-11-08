@@ -15,21 +15,11 @@ Number.prototype.formatBytes = function () {
 
 $(function () {
 	var upload_form = $('#upload_form'),
-        file_input = $('#selectedFile'),
-        file_list = $('#file_list'),
-        submit_btn = $('#submit_btn'),
-        uploaders = [];
+		file_input = $('#selectedFile'),
+		file_list = $('#file_list'),
+		uploaders = [];
 
-	file_input.on('change', onFilesSelected);
-	upload_form.on('submit', onFormSubmit);
-
-	file_list.delegate("button", "click", onPauseClick);
-
-	/**
-	 * Loops through the selected files, displays their file name and size
-	 * in the file list, and enables the submit button for uploading.
-	 */
-	function onFilesSelected(e) {
+	file_input.on('change', function (e) {
 		var files = e.target.files,
 			file,
 			list_item,
@@ -40,20 +30,28 @@ $(function () {
 
 		for (var i = 0; i < files.length; i++) {
 			file = files[i];
-			uploader = new ChunkedUploader(file);
+			uploader = new ChunkedUploader(file, { url: uploadProcessUrl });
 			uploaders.push(uploader);
 			list_item = $('<li>' + file.name + '(' + file.size.formatBytes() + ') </li>').data('uploader', uploader);
 			file_list.append(list_item);
 		}
 
 		file_list.show();
-		submit_btn.show();
-	}
+		upload_form.submit();
+	});
 
-	/**
-	 * Toggles pause method of the button's related uploader instance.
-	 */
-	function onPauseClick(e) {
+	upload_form.on('submit', function (e) {
+		$.each(uploaders, function (i, uploader) {
+			uploader.start();
+		});
+
+		uploaders = [];
+
+		// Prevent default form submission
+		e.preventDefault();
+	});
+
+	file_list.delegate("button", "click", function (e) {
 		var btn = $(this),
 			uploader = btn.parent('li').data('uploader');
 
@@ -65,21 +63,7 @@ $(function () {
 			btn.addClass('paused').text('继续');
 			uploader.pause();
 		}
-	}
-	/**
-     * Loops through all known uploads and starts each upload
-     * process, preventing default form submission.
-     */
-	function onFormSubmit(e) {
-		$.each(uploaders, function (i, uploader) {
-			uploader.start();
-		});
-
-		uploaders = [];
-
-		// Prevent default form submission
-		e.preventDefault();
-	}
+	});
 });
 
 function ChunkedUploader(file, options) {
@@ -89,10 +73,10 @@ function ChunkedUploader(file, options) {
 
 	this.file = file;
 
-	this.options = $.extend({
-		url: 'http://10.1.200.211:8050/FileUpload/ProcessUpload'
-	}, options);
-
+	//this.options = $.extend({
+	//	url: 'http://10.1.200.211:8050/FileUpload/ProcessUpload'
+	//}, options);
+	this.options = options;
 	this.file_size = this.file.size;
 	this.chunk_size = (1024 * 64); // 64KB
 	this.range_start = 0;

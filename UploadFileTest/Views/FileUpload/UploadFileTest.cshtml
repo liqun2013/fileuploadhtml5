@@ -12,16 +12,17 @@
         <span>选择文件</span>
         <input type="file" class="upload" id="selectedFile" name="selectedFile" multiple />
     </div>
-    <div style="margin-top:10px;">
-        <input id="submit_btn" type="submit" value="上 传" class="btn btn-primary btn-sm btn-block" style="display:none;" />
-    </div>
+    @*<div style="margin-top:10px;">
+            <input id="submit_btn" type="submit" value="上 传" class="btn btn-primary btn-sm btn-block" style="display:none;" />
+        </div>*@
     <ol id="file_list" style="display: none;margin-top:10px;">
         <!-- File data will be listed here -->
     </ol>
 </form>
 @section Scripts{
     @Scripts.Render("http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js")
-    @Scripts.Render("~/Scripts/fileupload.js")
     <script type="text/javascript">
+        var uploadProcessUrl = "@ViewBag.UploadProcessUrl";
     </script>
+    @Scripts.Render("~/Scripts/fileupload.js")
 }

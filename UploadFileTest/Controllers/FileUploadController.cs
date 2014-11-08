@@ -68,6 +68,7 @@ namespace UploadFileTest.Controllers
 
 		public ActionResult UploadFileTest()
 		{
+			ViewBag.UploadProcessUrl = GetUploadProcessUrl();
 			return View();
 		}
 
@@ -158,6 +159,12 @@ namespace UploadFileTest.Controllers
 			{
 				f.Write(buffer, 0, bytesRead);
 			}
+		}
+
+		private string GetUploadProcessUrl()
+		{
+			var theUrl = Request.Url;
+			return "http://" + theUrl.Host + ((theUrl.Port > 0 && !theUrl.IsDefaultPort) ? (":" + theUrl.Port.ToString()) : string.Empty) + "/FileUpload/ProcessUpload";
 		}
 	}
 }
