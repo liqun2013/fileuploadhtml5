@@ -23,7 +23,7 @@ namespace UploadFileTest.Controllers
 			{
 				if (string.IsNullOrWhiteSpace(fileFolder))
 				{
-					fileFolder = Path.Combine("C:\\uploadedfile", DateTime.Now.ToString("yyyyMM"));
+					fileFolder = Path.Combine(Server.MapPath("~/App_Data"), DateTime.Now.ToString("yyyyMM"));
 					if (!Directory.Exists(fileFolder))
 					{
 						Directory.CreateDirectory(fileFolder);
